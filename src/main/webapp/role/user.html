@@ -1,0 +1,100 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>图书管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/main-min.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+    .search {
+    position: absolute;
+    right: 0%;
+    top: 10px;
+}
+</style>
+<body>
+
+<div class="header">
+
+    <div class="dl-title">
+        <!--<img src="/chinapost/Public/assets/img/top.png">-->
+    </div>
+
+    <div class="dl-log">欢迎您，<span id="username" class="dl-log-user"></span><a id="logout"href="#" title="退出系统" class="dl-log-quit">[退出]</a>
+    </div>
+</div>
+<div class="content">
+    <div class="dl-main-nav">
+        <div class="dl-inform"><div class="dl-inform-title"><s class="dl-inform-icon dl-up"></s></div></div>
+        <ul id="J_Nav"  class="nav-list ks-clear">
+            <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">图书管理系统</div></li>
+            <!-- <div class="search">
+                <input type="text" id="title">
+                <button id="submit" class="btn btn-success">搜索</button>
+            </div> -->
+        </ul>
+    </div>
+    <ul id="J_NavContent" class="dl-tab-conten">
+
+    </ul>
+</div>
+<script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../assets/js/bui-min.js"></script>
+<script type="text/javascript" src="../assets/js/common/main-min.js"></script>
+<script type="text/javascript" src="../assets/js/config-min.js"></script>
+<script>
+    $(function(){
+        $.ajax({
+            url: '../user/get_user_info.do',
+            type: 'post',
+            dataType: 'json',
+            success: function(data){
+                $('#username').html(data.data.username);
+            }
+        });
+        $('#logout').click(function(){
+            $.ajax({
+                url: '../user/logout.do',
+                type: 'post',
+                success: function(data){
+                    if (!data.status){
+                        setTimeout(function(){
+                        location.href='../index.html';
+                        },1000);
+                    }
+                }
+            });
+        });
+    });
+    BUI.use('common/main',function(){
+        var config = [{
+            id:'1',menu:[{
+                text:'菜单',items:[{
+                        id:'1',text:'查询图书',href:'../book/search.html'
+                    },
+                    {
+                        id:'2',text:'借阅图书',href:'../book/borrow.html'
+                    },
+                    {
+                        id:'3',text:'归还图书',href:'../book/return.html'
+                    },
+                    {
+                        id:'4',text:'借阅记录',href:'../book/list.html'
+                    },
+                    {
+                        id:'5',text:'个人信息',href:'../user/info.html'
+                    },
+                    // {
+                    //     id:'6',text:'图表',href:'../book/chat.html'
+                    // }
+                    ]}]}];
+        new PageUtil.MainPage({
+            modulesConfig : config
+        });
+    });
+</script>
+</body>
+</html>

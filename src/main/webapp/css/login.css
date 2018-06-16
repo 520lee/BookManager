@@ -1,0 +1,77 @@
+body{
+    background-color: #93defe;
+}
+@media (max-width: 767px) {
+    body{
+        background-image: url("../images/login-img-lg.png");
+    }
+}
+.container{
+    margin: 7rem auto;
+}
+.col-lg-8{
+    height: 38rem;
+}
+.col-lg-8 img{
+    float: right;
+    margin-right: 5rem;
+}
+@media (max-width: 767px) {
+    .col-lg-4{
+        height: 38rem;
+        margin: 1rem auto;
+        background-color: #fff;
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+}
+.col-lg-4{
+    height: 38rem;
+    background-color: #fff;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+.col-lg-4 .account{
+    width: 100px;
+    height: 100px;
+    margin: -4rem auto;
+    text-align: center;
+    border-radius: 100%;
+    background-color: #fff;
+    border: 5px solid #93defe;
+}
+.col-lg-4 .account img{
+    margin: 1rem auto;
+}
+.col-lg-4 .title{
+    text-align: center;
+    margin: 8rem auto 4rem auto;
+}
+.col-lg-4 .form-group{
+    padding: 0 2rem;
+}
+.col-lg-4 .form-control{
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 3rem auto 0 auto;
+}
+.col-lg-4 .msg{
+    color: #c00;
+    height: 2rem;
+    margin: 0 2rem;
+    padding: 0 0;
+    line-height: 2rem;
+}
+.col-lg-4 .btn-box{
+    margin: 2rem auto;
+    text-align: center;
+}
+.col-lg-4 .btn-box .btn{
+    width: 40%;
+    color: white;
+    font-size: 20px;
+    background-color: #27a9e3;
+}
+.col-lg-4 .btn-box button+button{
+    margin-left: 2rem;
+}

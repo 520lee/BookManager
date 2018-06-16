@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../Js/jquery.sorted.js"></script> -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <!-- <script type="text/javascript" src="../js/ckform.js"></script> -->
+    <!-- <script type="text/javascript" src="../js/common.js"></script> -->
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        span#msg {
+            width: 150px;
+            height: 35px;
+            line-height: 35px;
+            position: absolute;
+            margin-left: 10%;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form class="definewidth m20">
+<input type="hidden" name="id" value="{$menu.id}" />
+<table class="table table-bordered table-hover m10">
+    <tr>
+        <td class="tableleft">名称：</td>
+        <td><input type="text" id="name"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft"></td>
+        <td>
+            <button type="button" class="btn btn-primary" id="submit">修改</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" id="backid">返回</button>
+            <span id="msg"></span>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<script>
+    $(function () {       
+		$('#submit').click(function(){
+				var sortId = location.href.split('=')[1];
+				var name = $('#name').val();
+				if (name) {
+                    $.ajax({
+                        url: '../manage/sort/set_sort_name.do',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            sortId,
+                            name
+                        },
+                        success: function (data) {
+                            if (!data.status){
+                                $('#msg').text(data.msg).css('color', 'green');
+                            }
+                        }
+                    });
+                } else {
+                    $('#msg').text('请输入分类名称').css('color', 'red');
+                }
+		 });
+         $('#backid').click(function () {
+			location.href='sort.html';
+         });
+    });
+</script>

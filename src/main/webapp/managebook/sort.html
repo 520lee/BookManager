@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../Js/jquery.sorted.js"></script> -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <!-- <script type="text/javascript" src="../js/ckform.js"></script> -->
+    <!-- <script type="text/javascript" src="../js/common.js"></script> -->
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        input {
+            height: 26px;
+        }
+        .btn {
+            width: 110px;
+        }
+        .m20 {
+            margin-top: 30px;
+        }
+        .m10 {
+            margin-top: 60px;
+        }
+        
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<form class="form-inline definewidth m20">  
+    分类编号：
+    <input type="text" id="sortId" class="abc input-default" placeholder="请输入分类编号" value="">&nbsp;&nbsp;  
+    <button type="button" class="btn btn-primary" id="submit">查询</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" id="getAll">获取所有分类</button>&nbsp;&nbsp;
+</form>
+<table class="table table-bordered table-hover definewidth m10" >
+    <thead>
+        <tr>
+            <th>分类编号</th>
+            <th>分类名称</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="content">
+    </tbody>
+</table>
+<script>
+    $(function(){
+        $('#submit').click(function(){
+            $('#content').empty();
+            var sortId = $('#sortId').val();
+            $.ajax({
+                url: '../manage/sort/get_sort.do',
+                type: 'post',
+                dataType: 'json',
+                data: {sortId: sortId},
+                success: function(data){
+                    if (!data.status){
+                        var sort = data.data;
+                        var html = `
+                        <tr>
+                            <td id="sortid">`+sort.sortId+`</td>
+                            <td id="name">`+sort.name+`</td>
+                            <td>
+                                <a id="update" href="#">修改</a>
+                                <a id="add" href="#">新增</a>
+                            </td>
+                        </tr>`;
+                        $('#content').append(html);
+                    }
+                }
+            });
+        });
+        $('#getAll').click(function(){
+            $('#content').empty();
+            $.ajax({
+                url: '../manage/sort/get_all_sort.do',
+                type: 'post',
+                success: function(data){
+                    if (data.data.total){
+                        var sorts = data.data.list;
+                        console.log(sorts);
+                        for (var index in sorts) {
+                            var sort = sorts[index];
+                            var html = `
+                            <tr>
+                                <td id="sortid">`+sort.sortId+`</td>
+                                <td id="name">`+sort.name+`</td>
+                                <td>
+                                    <a id="update" href="#">修改</a>
+                                    <a id="add" href="#">新增</a>
+                                </td>
+                            </tr>`;
+                            $('#content').append(html);
+                        }
+                    }
+                }
+            });
+        });
+        $('#content').delegate('#update', 'click', function(){
+            var sortId = $(this).attr('sortid');
+            location.href='esort.html?sortId=' + sortId;
+        });
+        $('#content').delegate('#add', 'click', function(){
+            var sortId = $(this).attr('sortid');
+            location.href='asort.html?sortId=' + sortId;
+        });
+    });
+</script>
+</body>
+</html>

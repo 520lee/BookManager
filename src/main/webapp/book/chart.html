@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../Js/jquery.sorted.js"></script> -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/assets/g2/3.0.11/g2.min.js"></script>
+    <!-- <script type="text/javascript" src="../js/ckform.js"></script> -->
+    <!-- <script type="text/javascript" src="../js/common.js"></script> -->
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        input#bookId {
+            height: 26px;
+        }
+        .btn {
+            width: 65px;
+        }
+        .m20 {
+            margin-top: 30px;
+        }
+        .m10 {
+            margin-top: 60px;
+        }
+        
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<form class="form-inline definewidth m20">  
+    图书编号：
+    <input type="text" name="bookId" id="bookId" class="abc input-default" placeholder="请输入图书编号" value="">&nbsp;&nbsp;  
+    <button type="button" class="btn btn-primary" id="submit">查询</button>&nbsp;&nbsp; 
+    <button type="button" class="btn btn-success" id="borrow">借阅</button>
+</form>
+<div id="c1"></div>
+<script>
+    const data = [
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 }
+]; // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+// Step 1: 创建 Chart 对象
+const chart = new G2.Chart({
+  container: 'c1', // 指定图表容器 ID
+  width : 600, // 指定图表宽度
+  height : 300 // 指定图表高度
+});
+// Step 2: 载入数据源
+chart.source(data);
+// Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴
+chart.interval().position('genre*sold').color('genre')
+// Step 4: 渲染图表
+chart.render();
+</script>
+</body>
+</html>

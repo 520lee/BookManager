@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../Js/jquery.sorted.js"></script> -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <!-- <script type="text/javascript" src="../js/ckform.js"></script> -->
+    <!-- <script type="text/javascript" src="../js/common.js"></script> -->
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        span#msg {
+            width: 150px;
+            height: 35px;
+            line-height: 35px;
+            position: absolute;
+            margin-left: 10%;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<form class="definewidth m20">
+<input type="hidden" name="id" value="{$menu.id}" />
+<table class="table table-bordered table-hover m10">
+    <tr>
+        <td class="tableleft">图书编号</td>
+        <td><input type="text" name="bookId"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">名称：</td>
+        <td><input type="text" id="title"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">原作名：</td>
+        <td><input type="text" id="originTitle"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">作者：</td>
+        <td><input type="text" id="author"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">作者简介：</td>
+        <td><input type="text" id="authorInfo"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">出版社：</td>
+        <td><input type="text" id="publish"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">定价：</td>
+        <td><input type="text" id="price"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">内容简介：</td>
+        <td><input type="text" id="summary"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">状态：</td>
+        <td><input type="text" id="status"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">分类编号：</td>
+        <td><input type="text" id="sortId"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">封面：</td>
+        <td><input type="text" id="coverUrl"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">ISBN：</td>
+        <td><input type="text" id="isbn"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">出版年：</td>
+        <td><input type="text" id="pubdate"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">页数：</td>
+        <td><input type="text" id="pages"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">装帧：</td>
+        <td><input type="text" id="binding"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">评分：</td>
+        <td><input type="text" id="average"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">评论数：</td>
+        <td><input type="text" id="numraters"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft"></td>
+        <td>
+            <button type="button" class="btn btn-primary" id="submit">新增</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" name="reset" id="reset">重置</button>
+            <span id="msg"></span>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<script>
+    $(function () {       
+		$('#submit').click(function(){
+				var bookId = $('#bookId').val();
+				var title = $('#title').val();
+				var originTitle = $('#originTitle').val();
+				var author = $('#author').val();
+				var authorInfo = $('#authorInfo').val();
+				var publish = $('#publish').val();
+				var price = parseInt($('#price').val());
+				var summary = $('#summary').val();
+				var status = parseInt($('#status').val());
+				var sortId = parseInt($('#sortId').val());
+				var coverUrl = $('#coverUrl').val();
+				var isbn = $('#isbn').val();
+				var pubdate = $('#pubdate').val();
+				var pages = parseInt($('#pages').val());
+				var binding = $('#binding').val();
+				var average = $('#average').val();
+				var numraters = $('#numraters').val();
+                if (bookId && title && author && authorInfo && publish && price && summary
+                && status.toString && sortId && coverUrl && isbn && pubdate && pages && binding && average && numraters){
+                    $.ajax({
+                        url: '../manage/book/add.do',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            bookId,
+                            title,
+                            originTitle,
+                            author,
+                            authorInfo,
+                            publish,
+                            price,
+                            summary,
+                            status,
+                            sortId,
+                            coverUrl,
+                            isbn,
+                            pubdate,
+                            pages,
+                            binding,
+                            average,
+                            numraters
+                        },
+                        success: function (data) {
+                            if (!data.status){
+                                $('#msg').text(data.msg).css('color', 'green');
+                            }
+                        }
+                    });
+                } else {
+                    $('#msg').text('请输入完整正确的参数').css('color', 'red');
+                }
+		 });
+         $('#reset').click(function () {
+            $('#bookId').val('');
+			$('#title').val('');
+			$('#originTitle').val('');
+			$('#author').val('');
+			$('#authorInfo').val('');
+			$('#publish').val('');
+			$('#price').val('');
+			$('#summary').val('');
+			$('#status').val('');
+			$('#sortId').val('');
+			$('#coverUrl').val('');
+			$('#isbn').val('');
+			$('#pubdate').val('');
+			$('#pages').val('');
+			$('#binding').val('');
+			$('#average').val('');
+			$('#numraters').val('');
+         });
+    });
+</script>

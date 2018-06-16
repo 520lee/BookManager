@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../Js/jquery.sorted.js"></script> -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <!-- <script type="text/javascript" src="../js/ckform.js"></script> -->
+    <!-- <script type="text/javascript" src="../js/common.js"></script> -->
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        .btn {
+            position: fixed;
+            top: 15px;
+            left: 20px;
+        }
+        .main {
+            width: 100%;
+            height: 100%;
+            padding: 60px 100px;
+            box-sizing: border-box;
+        }
+        .left {
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+        .right {
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+        .title {
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+        }
+        .cover {
+            float: left;
+            margin-top: 10%;
+            margin-right: 12px;
+        }
+        .img {
+            width: 135px;
+        }
+        .info {
+            width: 70%;
+            float: left;
+            margin-top: 10%;
+        }
+        .pl {
+            font-size: 13px;
+            line-height: 150%;
+            color: #666666;
+        }
+        .author {
+            margin-top: 8%;
+            font-size: 16px;
+            color: #007722;
+        }
+        .indent {
+            margin-top: 12px;
+            text-indent: 2em;
+            word-break: break-all;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <button id="backid" class="btn btn-primary">返回</button>
+    <div class="left">
+        <div class="title">
+            <span class="title-text"></span>
+        </div>
+        <div class="cover">
+            <a href="#" class="cover-link">
+                <img class="img" src="" alt="">
+            </a>
+        </div>
+        <div class="info">
+            <span class="pl">图书编号:</span><span id="bookId"></span><br/>
+            <span class="pl">作者:</span><span id="author"></span><br/>
+            <span class="pl">出版社:</span><span id="publish"></span> <br/>
+            <span class="pl">原作名:</span><span id="origin_title"></span><br/>
+            <!-- <span class="pl">译者</span>:金戈/汤凌/陈硕/张菲 译/裘宗燕 审校<br/> -->
+            <span class="pl">出版年:</span><span id="pubdate"></span> <br/>
+            <span class="pl">页数:</span><span id="pages"></span><br/>
+            <span class="pl">定价:</span><span id="price"></span><br/>
+            <span class="pl">装帧:</span><span id="binding"></span><br/>
+            <span class="pl">分类:</span><span id="sort"></span><br>
+            <span class="pl">ISBN:</span><span id="isbn"></span><br/>     
+            <span class="pl">状态:</span><span id="status"></span><br/>     
+        </div>
+    </div>
+    <div class="right">
+            <div class="author">
+                    <span>作者简介 · · · · · ·  </span>
+                </div>
+                <div class="indent">           
+                    <p id="author-info">
+                    </p>
+            </div>
+            <div class="author">
+                    <span>内容简介 · · · · · ·  </span>
+                </div>
+                <div class="indent">           
+                    <p id="summary">
+                    </p>
+                </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        var bookId = location.href.split('=')[1];
+        $.ajax({
+            url: '../book/detail.do',
+                type: 'post',
+                dataType: 'json',
+                data: {bookId: bookId},
+                success: function(data){
+                    var book = data.data;
+                    $('.title-text').text(book.title);
+                    $('#bookId').text(book.bookId);
+                    $('#author').text(book.author);
+                    $('#publish').text(book.publish);
+                    $('#origin_title').text(book.originTitle);
+                    $('#pubdate').text(book.pubdate);
+                    $('#pages').text(book.pages+'页');
+                    $('#price').text(parseInt(book.price).toFixed(2)+'元');
+                    $('#binding').text(book.binding);
+                    $('#sort').text(book.sort);
+                    $('#isbn').text(book.isbn);
+                    $('#status').text(book.status);
+                    $('#author-info').text(book.authorInfo);
+                    $('#summary').text(book.summary);
+                    $('.img').attr('src', book.coverUrl);
+                    console.log(data.data)
+                }
+        });
+        $('#backid').click(function(){
+            location.href='search.html';
+        });
+    });
+</script>
+</body>
+</html>

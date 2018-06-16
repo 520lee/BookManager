@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcut.dao.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.jcut.pojo.Book" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="book_id" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="origin_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="author" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="author_info" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="publish" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="sort_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cover_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="isbn" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="pubdate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pages" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="binding" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="average" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="numRaters" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, book_id, title, origin_title, author, author_info, publish, price, summary, status, 
+    sort_id, cover_url, isbn, pubdate, pages, binding, average, numRaters
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where book_id = #{bookId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from book
+    where book_id = #{bookId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jcut.pojo.Book" >
+    insert into book (id, book_id, title, 
+      origin_title, author, author_info, 
+      publish, price, summary, 
+      status, sort_id, cover_url, 
+      isbn, pubdate, pages, 
+      binding, average, numRaters
+      )
+    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, 
+      #{originTitle,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{authorInfo,jdbcType=VARCHAR}, 
+      #{publish,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{summary,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{sortId,jdbcType=INTEGER}, #{coverUrl,jdbcType=VARCHAR}, 
+      #{isbn,jdbcType=CHAR}, #{pubdate,jdbcType=VARCHAR}, #{pages,jdbcType=INTEGER}, 
+      #{binding,jdbcType=VARCHAR}, #{average,jdbcType=VARCHAR}, #{numraters,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcut.pojo.Book" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="originTitle != null" >
+        origin_title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="authorInfo != null" >
+        author_info,
+      </if>
+      <if test="publish != null" >
+        publish,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sortId != null" >
+        sort_id,
+      </if>
+      <if test="coverUrl != null" >
+        cover_url,
+      </if>
+      <if test="isbn != null" >
+        isbn,
+      </if>
+      <if test="pubdate != null" >
+        pubdate,
+      </if>
+      <if test="pages != null" >
+        pages,
+      </if>
+      <if test="binding != null" >
+        binding,
+      </if>
+      <if test="average != null" >
+        average,
+      </if>
+      <if test="numraters != null" >
+        numRaters,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=CHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="originTitle != null" >
+        #{originTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorInfo != null" >
+        #{authorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null" >
+        #{publish,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sortId != null" >
+        #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="coverUrl != null" >
+        #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        #{isbn,jdbcType=CHAR},
+      </if>
+      <if test="pubdate != null" >
+        #{pubdate,jdbcType=VARCHAR},
+      </if>
+      <if test="pages != null" >
+        #{pages,jdbcType=INTEGER},
+      </if>
+      <if test="binding != null" >
+        #{binding,jdbcType=VARCHAR},
+      </if>
+      <if test="average != null" >
+        #{average,jdbcType=VARCHAR},
+      </if>
+      <if test="numraters != null" >
+        #{numraters,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcut.pojo.Book" >
+    update book
+    <set >
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=CHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="originTitle != null" >
+        origin_title = #{originTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorInfo != null" >
+        author_info = #{authorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null" >
+        publish = #{publish,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sortId != null" >
+        sort_id = #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="coverUrl != null" >
+        cover_url = #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        isbn = #{isbn,jdbcType=CHAR},
+      </if>
+      <if test="pubdate != null" >
+        pubdate = #{pubdate,jdbcType=VARCHAR},
+      </if>
+      <if test="pages != null" >
+        pages = #{pages,jdbcType=INTEGER},
+      </if>
+      <if test="binding != null" >
+        binding = #{binding,jdbcType=VARCHAR},
+      </if>
+      <if test="average != null" >
+        average = #{average,jdbcType=VARCHAR},
+      </if>
+      <if test="numraters != null" >
+        numRaters = #{numraters,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcut.pojo.Book" >
+    update book
+    set book_id = #{bookId,jdbcType=CHAR},
+      title = #{title,jdbcType=VARCHAR},
+      origin_title = #{originTitle,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      author_info = #{authorInfo,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      summary = #{summary,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      sort_id = #{sortId,jdbcType=INTEGER},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=CHAR},
+      pubdate = #{pubdate,jdbcType=VARCHAR},
+      pages = #{pages,jdbcType=INTEGER},
+      binding = #{binding,jdbcType=VARCHAR},
+      average = #{average,jdbcType=VARCHAR},
+      numRaters = #{numraters,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from book
+    order by id asc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from book
+    where title like #{title}
+  </select>
+  <update id="updateStatus" parameterType="map" >
+    update book
+    set
+    status = #{status,jdbcType=INTEGER}
+    where book_id = #{bookId,jdbcType=CHAR}
+  </update>
+</mapper>

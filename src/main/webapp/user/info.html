@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../Js/jquery.sorted.js"></script> -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <!-- <script type="text/javascript" src="../js/ckform.js"></script> -->
+    <!-- <script type="text/javascript" src="../js/common.js"></script> -->
+
+ 
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        .m10 {
+            margin-top: 60px;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>用户名</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>电话</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="content"></tbody>
+</table>
+</body>
+</html>
+<script>
+    $(function () {
+        $.ajax({
+            url: '../user/get_user_info.do',
+            type: 'post',
+            cache: 'false',
+            dataType: 'json',
+            success: function(data){
+                var user = data.data;
+                var html = `
+                <tr>
+                    <td>`+user.username+`</td>
+                    <td>`+user.name+`</td>
+                    <td>`+user.sex+`</td>
+                    <td>`+user.age+`</td>
+                    <td>`+user.phone+`</td>
+                    <td>
+                        <a id="update" href="update.html">修改</a>
+                    </td>
+                </tr>`;
+                $('#content').html(html);
+            }
+        });
+    });
+</script>
